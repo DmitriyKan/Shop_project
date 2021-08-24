@@ -1,13 +1,36 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import firebase from 'firebase';
+import 'firebase/firestore'
+import 'firebase/auth'
+
+
+firebase.initializeApp({
+  apiKey: "AIzaSyB4sIO2q0fxlmKQ5vGNOQeZ_dBG4WCNJu8",
+  authDomain: "project-dmitriy-kanashevich.firebaseapp.com",
+  projectId: "project-dmitriy-kanashevich",
+  storageBucket: "project-dmitriy-kanashevich.appspot.com",
+  messagingSenderId: "270223533946",
+  appId: "1:270223533946:web:cbe95e050e61a2989558c3"
+}
+);
+export const Context = createContext(null)
+const auth = firebase.auth()
+const firestore = firebase.firestore()
+const storage = firebase.storage();
+export { firestore, storage }
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Context.Provider value={{
+    firebase,
+    auth,
+    firestore
+  }}>
     <App />
-  </React.StrictMode>,
+  </Context.Provider>,
   document.getElementById('root')
 );
 
